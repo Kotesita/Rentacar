@@ -1,0 +1,33 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f55d4c59375, pid=39159, tid=39176
+#
+# JRE version: OpenJDK Runtime Environment (15.0.1+9) (build 15.0.1+9-18)
+# Java VM: OpenJDK 64-Bit Server VM (15.0.1+9-18, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x4375]  ImageStrings::find(Endian*, char const*, int*, unsigned int)+0x65
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/kote/Documents/workspace-spring-tool-suite-4-4.9.0.RELEASE/rentacar/core.39159)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:+ShowCodeDetailsInExceptionMessages -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:37803 -javaagent:/home/kote/sts-4.9.0.RELEASE/configuration/org.eclipse.osgi/247/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 com.kote.rentacar.RentacarApplication
+
+Host: AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx, 8 cores, 6G, Ubuntu 20.04.1 LTS
+Time: Thu Mar  4 20:08:54 2021 -03 elapsed time: 1252.087041 seconds (0d 0h 20m 52s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f55d01d6480):  JavaThread "Signal Dispatcher" daemon [_thread_in_vm, id=39176, stack(0x00007f55a93fd000,0x00007f55a94fe000)]
+
+Stack: [0x00007f55a93fd000,0x00007f55a94fe000],  sp=0x00007f55a94fb1b0,  free space=1016k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x4375]  ImageStrings::find(Endian*, char const*, int*, unsigned int)+0x65
+C  [libjimage.so+0x4f0e]  ImageFileReader::find_location_index(char const*, unsigned long long*) const+0x3e
+C  [libjimage.so+0x540c]  JIMAGE_FindResource+0xfc
+V  [libjvm.so+0x4e9f51]
