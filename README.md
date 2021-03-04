@@ -25,6 +25,7 @@ spring.datasource.username={user}
 spring.datasource.password={password}
 ```
 
+```
 Automoviles: 
 { "id":0,
   "num_puertas":0,
@@ -55,7 +56,7 @@ Mantenciones:
   "descripcion":""
   "vehiculo":""
 }
-
+```
 ## Para el proyecto Rentacar: Endpoints
 
 * GET: /auto : Obtiene todos los automóviles creados.
