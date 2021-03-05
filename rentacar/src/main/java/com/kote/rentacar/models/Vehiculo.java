@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="vehiculo")
+@Table(name="vehiculos")
 public class Vehiculo {
 
 		@Id
@@ -41,13 +41,9 @@ public class Vehiculo {
 		
 		private Float cilindrada;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne
 	    @JoinColumn(name="id_automovil")
-		@NotNull(message = "El campo no debe estar vacío")
 	    private Automovil automovil;
-		
-		@OneToMany(mappedBy="vehiculo", fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-	    private List<Mantencion> mantenciones;
 		
 		@Column(updatable=false)
 		private Date createdAt;
@@ -133,14 +129,6 @@ public class Vehiculo {
 
 		public void setAutomovil(Automovil automovil) {
 			this.automovil = automovil;
-		}
-
-		public List<Mantencion> getMantenciones() {
-			return mantenciones;
-		}
-
-		public void setMantenciones(List<Mantencion> mantenciones) {
-			this.mantenciones = mantenciones;
 		}
 
 		public Date getUpdatedAt() {

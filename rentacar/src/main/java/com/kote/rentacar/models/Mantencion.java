@@ -27,7 +27,7 @@ public class Mantencion {
 	
 	private String descripcion;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name="id_vehiculo")
     private Vehiculo vehiculo;
 	
@@ -39,6 +39,10 @@ public class Mantencion {
 	public Mantencion() {
 	}
 
+	public Mantencion(String descripcion, Float valor) {
+		this.descripcion = descripcion;
+		this.valor = valor;
+	}
 	public Integer getId() {
 		return id;
 	}

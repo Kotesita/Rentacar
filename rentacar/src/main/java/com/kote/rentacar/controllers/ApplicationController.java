@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kote.rentacar.models.*;
@@ -16,6 +17,7 @@ import com.kote.rentacar.services.*;
 import javassist.tools.web.BadHttpRequest;
 
 @RestController
+@RequestMapping
 public class ApplicationController {
 	private final AutomovilService autoService;
 	private final MantencionService mantService;
@@ -27,22 +29,22 @@ public class ApplicationController {
 		this.mantService = mantService;
 	}
 	
-	@PostMapping(value="/auto", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@PostMapping(value="/automovil", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	public Automovil addAutomovil(@RequestBody Automovil auto) {
 		return autoService.createAuto(auto);
 	}
 	
-	@GetMapping(value="/auto")
+	@GetMapping(value="/automovil")
 	public List<Automovil> getAllAutomoviles(){
 		return autoService.allAutomoviles();
 	}
 	
-	@GetMapping(path="/auto/{id}")
+	@GetMapping(path="/automovil/{id}")
 	public Automovil getAutomovil(@PathVariable("id") Integer id){
 		return autoService.unAutomovil(id);
 	}
 	
-	@PutMapping(path="/auto/{id}")
+	@PutMapping(path="/automovil/{id}")
 	public Automovil updateAutomovil(@PathVariable("id") Integer id, @RequestBody Automovil auto) throws BadHttpRequest {
 		if (autoService.unAutomovil(id)!=null) {
 			auto.setId(id);
@@ -53,21 +55,23 @@ public class ApplicationController {
 		}
 	}
 	
-	@DeleteMapping(path="auto/{id}")
+	@DeleteMapping(path="automovil/{id}")
 	public void deleteAuto(@PathVariable("id") Integer id) throws BadHttpRequest {
 		Automovil auto = autoService.unAutomovil(id);
 		autoService.deleteAuto(auto);
 	}
 	
 	@PostMapping(value="/mantencion", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-	public void addMantencion(@RequestBody Mantencion mant) throws BadHttpRequest {
-		for(Vehiculo vehi : vehiService.allVehiculos()) {
-			if(!mant.getVehiculo().getId().equals(vehi.getId())){
-				System.out.println("Vehículo no existe");
-			} else {
-				mantService.createMantencion(mant);
+	public Mantencion addMantencion(@RequestBody Mantencion mant) throws BadHttpRequest {
+		String patenteVehi = mant.getVehiculo().getPatente();
+		if(!vehiService.allVehiculos().isEmpty()) {
+			for(Vehiculo vehi : vehiService.allVehiculos()) {
+				if(patenteVehi.equals(vehi.getPatente())){
+					mant.setVehiculo(vehi);
+				}
 			}
-		}
+		} 
+		return mantService.createMantencion(mant);
 	}
 	
 	@GetMapping(value="/mantencion")
@@ -99,13 +103,14 @@ public class ApplicationController {
 	
 	@PostMapping(value="/vehiculo",consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	public Vehiculo addVehiculo(@RequestBody Vehiculo vehi) throws BadHttpRequest {
-		for(Automovil auto : autoService.allAutomoviles()) {
-			if(!vehi.getAutomovil().getTipo().equals(auto.getTipo())){
-				autoService.createAuto(vehi.getAutomovil());
-			} else {
-				Automovil idAuto = autoService.unAutomovil(auto.getId());
-				vehi.setAutomovil(idAuto);
+		if(!autoService.allAutomoviles().isEmpty()) {
+			for(Automovil auto : autoService.allAutomoviles()) {
+				if(vehi.getAutomovil().getTipo().equals(auto.getTipo())){
+					vehi.setAutomovil(auto);
+				} 
 			}
+		} else {
+			autoService.createAuto(vehi.getAutomovil());
 		}
 		return vehiService.createVehiculo(vehi);
 	}

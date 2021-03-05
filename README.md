@@ -59,11 +59,11 @@ Mantenciones:
 ```
 ## Para el proyecto Rentacar: Endpoints
 
-* GET: /auto : Obtiene todos los automóviles creados.
-* POST: /auto: Crea uno o varios automoviles.
-* GET: /auto/{id}: Obtiene información del automóvil de id específica.
-* PUT: /auto/{id}: Modifica el auto de id específica
-* DELETE: /auto/{id}: Elimina el auto de id específica
+* GET: /automovil : Obtiene todos los automóviles creados.
+* POST: /automovil: Crea uno o varios automoviles.
+* GET: /automovil/{id}: Obtiene información del automóvil de id específica.
+* PUT: /automovil/{id}: Modifica el auto de id específica
+* DELETE: /automovil/{id}: Elimina el auto de id específica
 * GET: /mantencion : Obtiene todos las mantenciones realizadas.
 * POST: /mantencoon: Crea uno o varios mantenciones.
 * GET: /mantencion/{id}: Obtiene información de la mantención de id específica.

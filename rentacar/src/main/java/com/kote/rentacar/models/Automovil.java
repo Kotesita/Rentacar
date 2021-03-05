@@ -6,11 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -18,7 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Automovil")
+@Table(name="Automoviles")
 public class Automovil {
 
 	@Id
@@ -34,9 +32,6 @@ public class Automovil {
 	private Float cap_toneladas;
 	
 	private Integer num_ejes;
-	
-	@OneToMany(mappedBy="automovil", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Vehiculo> vehiculos;
 	
 	@NotNull(message = "El campo no debe estar vacío")
 	private String tipo;
@@ -101,14 +96,6 @@ public class Automovil {
 		this.num_ejes = num_ejes;
 	}
 
-	public List<Vehiculo> getVehiculos() {
-		return vehiculos;
-	}
-
-	public void setVehiculos(List<Vehiculo> vehiculos) {
-		this.vehiculos = vehiculos;
-	}
-	
 	public String getTipo() {
 		return tipo;
 	}
